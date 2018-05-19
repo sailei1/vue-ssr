@@ -7,6 +7,8 @@ import * as filters from './util/filters'
 import MetaInfo from 'vue-meta-info'
 Vue.use(MetaInfo)
 
+
+
 // mixin for handling title
 Vue.mixin({
     beforeMount () {

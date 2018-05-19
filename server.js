@@ -101,8 +101,9 @@ function render(req, res) {
     }
 
     const context = {
-        title: '掘金', // default title
-        url: req.url
+        title: '', // default title
+        url: req.url,
+        cookies: req.cookies,
     }
     renderer.renderToString(context, (err, html) => {
         if (err) {
@@ -115,20 +116,20 @@ function render(req, res) {
     })
 }
 
-app.get('/v1/get_entry_by_rank', (req, res) => {
-    console.log(req.url);
-    axios({
-        method:'get',
-        url: websiteConfig.host + req.url,
-        responseType:'stream'
-    }).then(response => {
-        // console.log(response);
-        response.data.pipe(res);
-    }).catch(err => {
-        console.error(err);
-        res.status(500).send('500 | Internal Server Error')
-    });
-});
+// app.get('/v1/get_entry_by_rank', (req, res) => {
+//     console.log(req.url);
+//     axios({
+//         method:'get',
+//         url: websiteConfig.host + req.url,
+//         responseType:'stream'
+//     }).then(response => {
+//         // console.log(response);
+//         response.data.pipe(res);
+//     }).catch(err => {
+//         console.error(err);
+//         res.status(500).send('500 | Internal Server Error')
+//     });
+// });
 
 app.get('*', isProd ? render : (req, res) => {
     readyPromise.then(() => render(req, res))

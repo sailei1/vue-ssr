@@ -1,15 +1,18 @@
 <template>
     <div class="bg">
         首页 {{text}}
+        <div @click="gotoDetail"> 详情页</div>
+        <router-link :to="{ name: 'detail',query: {id:'123'}}">详情页</router-link>
+        <div @click="testMethod"> {{test}}</div>
+
     </div>
 </template>
 <style lang="scss" scoped>
      @import "./index.scss";
 </style>
 <script>
-
+    import  test from '../store/modules/testModule'
     import Item from '../components/Item.vue'
-    import {mapGetters} from 'vuex';
     import axios from 'axios';
     import website from'../config/website'
 
@@ -18,8 +21,9 @@
         metaInfo: {
             title: '标题',
         },
-            asyncData ({ store }) {
-            return store.dispatch('getServerData')
+        asyncData ({ store }) {
+            store.registerModule('test', test);
+            return store.dispatch('test/getServerData')
         },
          data(){
              return{
@@ -31,27 +35,26 @@
         },
         computed: {
             text() {
-                return this.$store.getters.getText;
+                return this.$store.state.test.server_text;
+            },
+            test(){
+                return this.$store.state.test.test;
             }
+
         },
         mounted(){
-//            this.loadData();
+
+        },
+        destroyed () {
+            this.$store.unregisterModule('test')
         },
         methods:{
-//            loadData(){
-//                let url='http://127.0.0.1:9999/detail';
-//                axios({
-//                    method:'get',
-//                    url: url,
-//                }).then(response => {
-//                     console.log(response.data);
-//                     let data=response.data;
-//                     this.text=data.itemInfo.text;
-//
-//                }).catch(err => {
-//                    console.error(err);
-//                });
-//            }
+            gotoDetail(){
+                this.$router.push({ name: 'detail', query: {id:'123'}});
+            },
+            testMethod(){
+                this.$store.dispatch('test/getServerDataByMethod')
+            }
         }
 
     }

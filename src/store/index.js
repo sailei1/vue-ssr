@@ -28,34 +28,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import api from '../api/request'
+// import api from '../api/request'
+import test from './modules/testModule'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
+axios.defaults.withCredentials=true;
+Vue.prototype.$axios = axios;
 
 export function createStore () {
     return new Vuex.Store({
-        state: {
-            server_text:''
-        },
-        getters:{
-            getText(state){
-                return state.server_text;
-            }
-        },
-        actions: {
-            getServerData({ commit }) {
-                // return api.post('http://127.0.0.1:9999/detail',{cache: true}).then((res) => {
-                //缓存问题  没有解决
-                return axios.get('http://127.0.0.1:9999/detail').then((res) => {
-                    // console.log('cache',res.data.cache);
-                    commit('setText', res.data.itemInfo.text);
-                })
-            }
-        },
-        mutations: {
-            setText (state, text) {
-                state.server_text = text;
-            }
-        }
+        // modules: {test},
     })
 }

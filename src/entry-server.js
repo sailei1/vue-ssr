@@ -35,7 +35,8 @@ export default context => {
       // updated.
       Promise.all(matchedComponents.map(({ asyncData }) => asyncData && asyncData({
         store,
-        route: router.currentRoute
+        route: router.currentRoute,
+          cookies: context.cookies,
       }))).then(() => {
         isDev && console.log(`data pre-fetch: ${Date.now() - s}ms`)
         // After all preFetch hooks are resolved, our store is now
