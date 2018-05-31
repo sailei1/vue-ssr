@@ -103,7 +103,6 @@ function render(req, res) {
     const context = {
         title: '', // default title
         url: req.url,
-        cookies: req.cookies,
     }
     renderer.renderToString(context, (err, html) => {
         if (err) {

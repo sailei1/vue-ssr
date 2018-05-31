@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "PORT=8888 node server",
+    "server:dev": "PORT=8888 node --inspect server",
     "start": "NODE_ENV=production node server",
     "build": "rimraf dist && npm run build:client && npm run build:server",
     "build:client": "NODE_ENV=production webpack --config build/webpack.client.config.js --progress --hide-modules",

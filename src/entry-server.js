@@ -13,7 +13,8 @@ export default context => {
     const { app, router, store } = createApp()
 
     const { url } = context
-    const { fullPath } = router.resolve(url).route
+//      debugger;
+    const { fullPath } = router.resolve(url).route;
 
     if (fullPath !== url) {
       return reject({ url: fullPath })
@@ -35,8 +36,7 @@ export default context => {
       // updated.
       Promise.all(matchedComponents.map(({ asyncData }) => asyncData && asyncData({
         store,
-        route: router.currentRoute,
-          cookies: context.cookies,
+        route: router.currentRoute
       }))).then(() => {
         isDev && console.log(`data pre-fetch: ${Date.now() - s}ms`)
         // After all preFetch hooks are resolved, our store is now
