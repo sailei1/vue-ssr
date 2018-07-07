@@ -13,6 +13,11 @@ const mapObj = {
         require.ensure(['../views/detail/detail.vue'], function (index) {
             require(['../views/detail/detail.vue'], resolve);
         }, 'detail');
+    },
+    'rem':function (resolve) {
+        require.ensure(['../views/rem/rem.vue'], function (index) {
+            require(['../views/rem/rem.vue'], resolve);
+        }, 'rem');
     }
 }
 
@@ -22,7 +27,8 @@ const routes=[];
 routes.push(
     {path: '/', redirect: '/index'},
     {path:'/index',name:'index',component:mapObj.index},
-    {path:'/detail',name:'detail',component:mapObj.detail}
+    {path:'/detail',name:'detail',component:mapObj.detail},
+    {path:'/rem',name:'rem',component:mapObj.rem}
 );
 
 export function createRouter() {

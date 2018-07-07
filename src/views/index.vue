@@ -3,6 +3,9 @@
         首页 {{text}}
         <div @click="gotoDetail"> 详情页</div>
         <router-link :to="{ name: 'detail',query: {id:'123'}}">详情页</router-link>
+        <div>
+        <router-link :to="{ name: 'rem',query: {id:'123'}}">rem</router-link>
+        </div>
         <div @click="testMethod"> {{test}}</div>
 
     </div>

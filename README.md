@@ -12,5 +12,7 @@
       https://github.com/tiodot/vnews
 
       https://github.com/vuejs/vue-hackernews-2.0
+
+      https://www.w3cplus.com/mobile/vw-layout-in-vue.html
       
       
