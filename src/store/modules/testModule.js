@@ -9,12 +9,12 @@ export default {
         test:0,
     },
     getters:{
-        getText(state){
-            return state.server_text;
-        },
-        getTest(state){
-            return state.test;
-        }
+        // getText(state){
+        //     return state.server_text;
+        // },
+        // getTest(state){
+        //     return state.test;
+        // }
 
     },
     actions: {
