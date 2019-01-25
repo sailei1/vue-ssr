@@ -1,7 +1,8 @@
 /**
  * Created by zhangsailei on 2018/5/18.
  */
-import axios from 'axios';
+// import axios from 'axios';
+import request from '../../api/request.js'
 export default {
     namespaced: true,
     state: {
@@ -21,15 +22,14 @@ export default {
         getServerData({ commit }) {
             // return api.post('http://127.0.0.1:9999/detail',{cache: true}).then((res) => {
             //缓存问题  没有解决
-            return axios.get('http://127.0.0.1:9999/detail').then((res) => {
+            return request.get('http://127.0.0.1:9999/detail').then((res) => {
                 // console.log('cache',res.data.cache);
                 commit('setText', res.data.itemInfo.text);
             })
         },
         getServerDataByMethod({ commit }) {
-            return axios.get('http://127.0.0.1:9999/detail').then((res) => {
-                // console.log('cache',res.data.cache);
-                commit('setTest', res.data.itemInfo.text);
+            return request.get('http://127.0.0.1:9999/detail').then((res) => {
+                commit('setTest', Math.random());
             })
         }
 

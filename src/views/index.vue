@@ -16,8 +16,6 @@
 <script>
     import  test from '../store/modules/testModule'
     import Item from '../components/Item.vue'
-    import axios from 'axios';
-    import website from'../config/website'
 
     export default{
         name:'index',

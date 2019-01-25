@@ -41,10 +41,10 @@ export function createApp () {
     // here we inject the router, store and ssr context to all child components,
     // making them available everywhere as `this.$router` and `this.$store`.
     const app = new Vue({
-            router,
-            store,
-            render: h =>  h(App)
-})
+        router,
+        store,
+        render: h =>  h(App)
+    })
 
     // expose the app, the router and the store.
     // note we are not mounting the app here, since bootstrapping will be

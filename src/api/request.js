@@ -1,22 +1,65 @@
-import axios from 'axios'
-import qs from 'qs'
-import md5 from 'md5'
-import {createAPI} from './config-server.js'
+import axios from 'axios';
+import urls from './urls'
 
-let  api={
-    post(url, data) {
-        const key = md5(url + JSON.stringify(data))
-        if (createAPI.cached && createAPI.cached.has(key)) {
-            return Promise.resolve(createAPI.cached.get(key))
-        }
-        return axios({
-            method: 'post',
-            url: createAPI.api + url,
-            data: qs.stringify(data),
-        }).then(res => {
-            if (createAPI.cached && data.cache) createAPI.cached.set(key, res)
-            return res
+
+const request = axios.create();
+
+let isRefreshing = false;
+let failedQueue = [];
+
+    const processQueue = (error, token = null) => {
+        failedQueue.forEach(prom => {
+            if (error) {
+                prom.reject(error);
+            } else {
+                prom.resolve(token);
+            }
         })
+
+        failedQueue = [];
     }
-}
-export default api;
+
+request.interceptors.response.use(function (response) {
+        return response;
+    }, function (error) {
+
+        const originalRequest = error.config;
+
+        if (error.response.status === 401 && !originalRequest._retry) {
+
+            if (isRefreshing) {
+                return new Promise(function(resolve, reject) {
+                    failedQueue.push({resolve, reject})
+                }).then(token => {
+                    originalRequest.headers['Authorization'] = 'Bearer ' + token;
+                    return axios(originalRequest);
+                }).catch(err => {
+                    return err
+                })
+            }
+
+            originalRequest._retry = true;
+            isRefreshing = true;
+
+            const refreshToken = window.localStorage.getItem('refreshToken');
+            return new Promise(function (resolve, reject) {
+                request.post(urls.refresh_token, { refreshToken })
+                    .then(({data}) => {
+                        window.localStorage.setItem('token', data.token);
+                        window.localStorage.setItem('refreshToken', data.refreshToken);
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+                        originalRequest.headers['Authorization'] = 'Bearer ' + data.token;
+                        processQueue(null, data.token);
+                        resolve(axios(originalRequest));
+                    })
+                    .catch((err) => {
+                        processQueue(err, null);
+                        reject(err);
+                    })
+                    .then(() => { isRefreshing = false })
+            })
+        }
+
+        return Promise.reject(error);
+    });
+export default request;
