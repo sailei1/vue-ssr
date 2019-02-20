@@ -6,6 +6,10 @@
         <div>
         <router-link :to="{ name: 'rem',query: {id:'123'}}">rem</router-link>
         </div>
+       <div>
+        <router-link :to="{ name: 'finger'}">手势</router-link>
+       </div>
+
         <div @click="testMethod"> {{test}}</div>
 
     </div>

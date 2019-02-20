@@ -7,6 +7,7 @@ const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const vConsolePlugin = require('vconsole-webpack-plugin');
 const build_type=process.env.TYPE;
 const { SkeletonPlugin } = require('page-skeleton-webpack-plugin');
 const {routes} = require('./skeleton.routes');
@@ -58,7 +59,11 @@ const config = merge(base, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest'
     }),
-    new VueSSRClientPlugin()
+    new VueSSRClientPlugin(),
+    new vConsolePlugin({
+          filter: [],  // 需要过滤的入口文件
+          enable: true // 发布代码前记得改回 false
+      }),
   ]
 })
 

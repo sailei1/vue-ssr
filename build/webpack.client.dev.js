@@ -111,10 +111,10 @@ const devWebpackConfig = merge(base, {
                 ignore: ['.*']
             }
         ]),
-        // new vConsolePlugin({
-        //     filter: [],  // 需要过滤的入口文件
-        //     enable: true // 发布代码前记得改回 false
-        //      }),
+        new vConsolePlugin({
+            filter: [],  // 需要过滤的入口文件
+            enable: true // 发布代码前记得改回 false
+             }),
 
         //加载骨架
         new SkeletonPlugin({

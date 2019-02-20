@@ -8,7 +8,7 @@ const microcache = require('route-cache')
 const resolve = file => path.resolve(__dirname, file)
 const {createBundleRenderer} = require('vue-server-renderer')
 const axios = require('axios');
-const websiteConfig = require('./src/config/website');
+// const websiteConfig = require('./src/config/website');
 
 const isProd = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'

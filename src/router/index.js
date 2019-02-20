@@ -18,7 +18,12 @@ const mapObj = {
         require.ensure(['../views/rem/rem.vue'], function (index) {
             require(['../views/rem/rem.vue'], resolve);
         }, 'rem');
-    }
+    },
+    'finger':function (resolve) {
+        require.ensure(['../views/finger/finger.vue'], function (index) {
+            require(['../views/finger/finger.vue'], resolve);
+        }, 'finger');
+    },
 }
 
 
@@ -28,7 +33,9 @@ routes.push(
     {path: '/', redirect: '/index'},
     {path:'/index',name:'index',component:mapObj.index},
     {path:'/detail',name:'detail',component:mapObj.detail},
-    {path:'/rem',name:'rem',component:mapObj.rem}
+    {path:'/rem',name:'rem',component:mapObj.rem},
+    {path:'/finger',name:'finger',component:mapObj.finger}
+
 );
 
 export function createRouter() {
