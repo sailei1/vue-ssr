@@ -29,7 +29,7 @@
    import finger from '../../util/finger_directive_help.js'
 
     export default {
-        name: 'seat',
+        name: 'finger',
         directives: finger,
         components: {
 

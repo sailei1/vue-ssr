@@ -17,13 +17,13 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  @import '~reset';
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-size: 15px;
     background-color: #f2f3f5;
     margin: 0;
-    padding-top: 55px;
     color: #34495e;
     overflow-y: scroll;
   }

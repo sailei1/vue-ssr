@@ -5,7 +5,8 @@ var detail = require(path.join(__dirname, 'db/detail.json'));
 
 module.exports = function () {
 	return {
-		"detail1"          : detail,
-        "detail"          : detail,
+		"detail1": detail,
+        "detail": detail,
+
 	}
 };
